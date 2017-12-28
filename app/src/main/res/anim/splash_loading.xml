@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translate xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="3000"
+    android:fromXDelta="0.0"
+    android:interpolator="@android:anim/accelerate_decelerate_interpolator"
+    android:toXDelta="60%p"
+    android:repeatCount="0"
+    android:repeatMode="restart"
+    android:fillAfter="true" />
+
+<!--
+  xml属性	                   java方法	                      解释
+android:detachWallpaper	 setDetachWallpaper(boolean)  	 是否在壁纸上运行
+android:duration	     setDuration(long)	             动画持续时间，毫秒为单位
+android:fillAfter	     setFillAfter(boolean)	         控件动画结束时是否保持动画最后的状态
+android:fillBefore	     setFillBefore(boolean)	         控件动画结束时是否还原到开始动画前的状态
+android:fillEnabled	     setFillEnabled(boolean)	     与android:fillBefore效果相同
+android:interpolator	 setInterpolator(Interpolator)	 设定插值器（指定的动画效果，譬如回弹等）
+android:repeatCount	     setRepeatCount(int)	         重复次数
+android:repeatMode	     setRepeatMode(int)	             重复类型有两个值，reverse表示倒序回放，restart表示从头播放
+android:startOffset	     setStartOffset(long)	         调用start函数之后等待开始运行的时间，单位为毫秒
+android:zAdjustment	     setZAdjustment(int)	         表示被设置动画的内容运行时在Z轴上的位置（top/bottom/normal），默认为normal
+-->

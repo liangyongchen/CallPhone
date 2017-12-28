@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 切换夜间模式的设置 -->
+    <color name="colorPrimary">#35464e</color>
+    <color name="colorPrimaryDark">#212a2f</color>
+    <color name="colorAccent">#607d8b</color>
+    <color name="textColorPrimary">@color/White</color>
+    <color name="viewBackground">@color/Grey800</color>
+    <color name="windowBackground">@color/Grey900</color>
+    <color name="navigationBarColor">#35464e</color>
+    <color name="line_divider">@color/Grey700</color>
+</resources>

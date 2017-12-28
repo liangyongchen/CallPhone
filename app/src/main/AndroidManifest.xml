@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.asen.callphone">
+
+    <!-- 打电话 -->
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
+    <!-- 读写通话记录 -->
+    <uses-permission android:name="android.permission.READ_CALL_LOG" />
+    <uses-permission android:name="android.permission.WRITE_CALL_LOG" />
+
+    <!-- 手机通讯录 -->
+    <!-- android6.0之后，获取通讯录的权限是，有application 不要再這里添加 -->
+    <!-- <uses-permission android:name="android.permission.GET_ACCOUNTS" /> -->
+    <!-- 6.0之前的版本中的权限设置是 -->
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" /> <!-- 为了兼容低版本 -->
+
+
+    <!-- // android.permission-group.STORAGE 组 -->
+    <!-- SD卡 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!-- 创建文件 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- 设备读取 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <uses-permission-sdk-23 android:name="android.permission.CALL_PHONE" />
+    <uses-permission-sdk-23 android:name="android.permission.READ_CALL_LOG" />
+    <uses-permission-sdk-23 android:name="android.permission.WRITE_CALL_LOG" />
+    <uses-permission-sdk-23 android:name="android.permission.READ_CONTACTS" />
+    <uses-permission-sdk-23 android:name="android.permission.WRITE_CONTACTS" />
+    <uses-permission-sdk-23 android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission-sdk-23 android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission-sdk-23 android:name="android.permission.READ_PHONE_STATE" />
+
+    <application
+        android:name=".base.app.BaseApp"
+        android:allowBackup="true"
+        android:icon="@mipmap/icon_mail_list"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/icon_mail_list"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="orientation|screenSize|uiMode"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.AddContactsActivity"
+            android:configChanges="orientation|screenSize|uiMode"
+            android:label="@string/title_activity_system_settings"
+            android:theme="@style/AppTheme.NoActionBar.Slidable" />
+        <activity
+            android:name=".ui.SystemSettingsActivity"
+            android:configChanges="orientation|screenSize|uiMode"
+            android:label="@string/title_activity_system_settings"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.SoftwareSetActivity"
+            android:configChanges="orientation|screenSize|uiMode"
+            android:label="@string/title_activity_software_settings"
+            android:theme="@style/AppTheme.NoActionBar.Slidable">
+            <intent-filter>
+                <action android:name="android.intent.action.APPLICATION_PREFERENCES" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.AboutActivity"
+            android:configChanges="orientation|screenSize|uiMode"
+            android:label="@string/title_activity_about"
+            android:theme="@style/AppTheme.NoActionBar.Slidable" />
+    </application>
+
+</manifest>

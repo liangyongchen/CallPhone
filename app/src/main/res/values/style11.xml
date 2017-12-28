@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- start TextView 控件-->
+
+    <style name="TextView_0_w_c_14dp_cWhite">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:textColor">@color/White</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="TextView_0_w_c_16dp_cWhite">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textSize">16dp</item>
+        <item name="android:textColor">@color/White</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+
+    <!-- end TextView 控件-->
+
+
+    <!-- start LinearLayout 控件 -->
+
+    <!-- 1.线性布局 > 宽m，高w  -->
+    <style name="LinearLayout_m_m">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <!-- 2.线性布局 > 宽m，高w  -->
+    <style name="LinearLayout_m_w">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <!-- 2-1.线性布局 > 宽m，高w  -->
+    <style name="LinearLayout_w_w">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <!-- 3.线性布局 > 宽w，高m  -->
+    <style name="LinearLayout_w_m">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <!-- 4.线性布局 > 宽m，高w，居中  -->
+    <style name="LinearLayout_m_w_c">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <!-- 5.线性布局 > 宽m，高w，居中  -->
+    <style name="LinearLayout_0_w_c">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <!-- end LinearLayout 控件 -->
+
+
+</resources>

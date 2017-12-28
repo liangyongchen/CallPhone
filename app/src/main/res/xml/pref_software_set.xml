@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- colorAccent 设置 PreferenceCategory 的 title 字体颜色和选择框颜色 -->
+    <PreferenceCategory android:title="基本设置">
+
+        <Preference
+            android:key="auto_nightMode"
+            android:summary="设置切换时间"
+            android:title="自动切换夜间模式" />
+
+        <Preference
+            android:key="text_size"
+            android:summary="设置字体大小"
+            android:title="字体大小" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="其他设置">
+
+        <ListPreference
+            android:entries="@array/slidable"
+            android:entryValues="@array/slidableValues"
+            android:key="slidable"
+            android:negativeButtonText="取消"
+            android:summary="类似 IOS 左侧滑动返回"
+            android:title="滑动返回" />
+
+        <com.asen.callphone.preferences.IconPreference
+            android:key="color"
+            android:summary="自定义主题颜色"
+            android:title="主题颜色"/>
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="nav_bar"
+            android:summary="导航栏颜色跟随主题颜色"
+            android:title="导航栏颜色" />
+
+        <Preference
+            android:key="clearCache"
+            android:title="清楚缓存" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="关于">
+
+        <Preference
+            android:key="version"
+            android:title="版本" />
+
+        <Preference
+            android:key="changelog"
+            android:summary="有啥不满望见谅 -_- "
+            android:title="仿照头条app" />
+
+        <Preference
+            android:key="licenses"
+            android:summary="查看开源许可信息"
+            android:title="开源许可" />
+
+        <Preference
+            android:key="sourceCode"
+            android:summary="QQ咨询：375427684\t\n添加备注格式（姓名+工作类型+电话号码）"
+            android:title="源代码" />
+
+        <Preference
+            android:key="copyRight"
+            android:summary="仅作个人及非商业用途"
+            android:title="版权声明" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

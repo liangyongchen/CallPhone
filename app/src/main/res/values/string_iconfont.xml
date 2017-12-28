@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--银行卡-->
+    <string name="Iconfont_BankCard">&#xe619;</string>
+    <!--芝麻分-->
+    <string name="Iconfont_ZhiMaFen">&#xe61d;</string>
+    <!--验证码-->
+    <string name="Iconfont_YanZhenMa">&#xe626;</string>
+    <!--设置-->
+    <string name="Iconfont_Set">&#xe664;</string>
+    <!--钱袋-->
+    <string name="Iconfont_Money">&#xe603;</string>
+    <!--会员-->
+    <string name="Iconfont_Member">&#xe625;</string>
+    <!--学历-->
+    <string name="Iconfont_Education">&#xe620;</string>
+    <!--本月-->
+    <string name="Iconfont_Month">&#xe61c;</string>
+    <!--向左-->
+    <string name="Iconfont_Ltfe">&#xe670;</string>
+    <!--箭头向右-->
+    <string name="Iconfont_RightEdge">&#xe67d;</string>
+    <!--箭头向上-->
+    <string name="Iconfont_Top">&#xe606;</string>
+    <!--箭头向下-->
+    <string name="Iconfont_Buttom">&#xe66a;</string>
+
+    <!--手机-->
+    <string name="Iconfont_Phone0">&#xe61b;</string>
+    <string name="Iconfont_Phone1">&#xe61f;</string>
+
+    <!--筛选-->
+    <string name="Iconfont_Screen">&#xe64d;</string>
+
+    <!--还款日历-->
+    <string name="Iconfont_RepaymentDate">&#xe622;</string>
+    <!--还款日历2-->
+    <string name="Iconfont_RepaymentDate2">&#xe617;</string>
+    <!--日历-->
+    <string name="Iconfont_Calendar">&#xe657;</string>
+
+    <!--劵-->
+    <string name="Iconfont_Juan">&#xe64b;</string>
+    <!--指南-->
+    <string name="Iconfont_Guide">&#xe60c;</string>
+    <!--消息-->
+    <string name="Iconfont_Information">&#xe604;</string>
+    <!--对-->
+    <string name="Iconfont_Right">&#xe658;</string>
+    <!--淘宝1-->
+    <string name="Iconfont_TaoBao">&#xe62a;</string>
+    <!--信用分-->
+    <string name="Iconfont_CreditScore">&#xe6e6;</string>
+
+    <!--保证金-->
+    <string name="Iconfont_AmountMoney">&#xe60a;</string>
+    <!--钱包-->
+    <string name="Iconfont_Wallet">&#xe607;</string>
+    <!--还款管理-->
+    <string name="Iconfont_Repayment">&#xe649;</string>
+
+    <!--沙漏-->
+    <string name="Iconfont_Hourglass">&#xe613;</string>
+    <!--金币-->
+    <string name="Iconfont_Gold">&#xe608;</string>
+
+    <!--同意-->
+    <string name="Iconfont_Agree">&#xe600;</string>
+    <!--身份证-->
+    <string name="Iconfont_PeopleID">&#xe682;</string>
+    <!--返回-->
+    <string name="Iconfont_Back">&#xe605;</string>
+    <!--多家运营商-->
+    <string name="Iconfont_MoreOperator">&#xe623;</string>
+    <!--京东-->
+    <string name="Iconfont_JD">&#xe601;</string>
+    <!--密码-->
+    <string name="Iconfont_Password">&#xe602;</string>
+
+    <!--我的借款-->
+    <string name="Iconfont_MeLoan">&#xe614;</string>
+    <!--借款-->
+    <string name="Iconfont_Loan">&#xe609;</string>
+    <!--时间-->
+    <string name="Iconfont_Date">&#xe621;</string>
+    <!--借款状态-->
+    <string name="Iconfont_State">&#xe690;</string>
+    <!--相机-->
+    <string name="Iconfont_Camera">&#xe671;</string>
+    <!--错-->
+    <string name="Iconfont_Error">&#xe651;</string>
+    <!--个人头像-->
+    <string name="Iconfont_MePhoto">&#xe729;</string>
+    <!--通讯录-->
+    <string name="Iconfont_UrgentContacts">&#xe615;</string>
+
+
+</resources>

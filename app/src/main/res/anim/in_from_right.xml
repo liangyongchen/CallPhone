@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:interpolator="@android:anim/accelerate_interpolator">
+    <!--  100%:表示左边隐藏；
+          0%：表示屏幕显示部位；
+          100%：表示右边隐藏；
+          fromXDelta：表示开始X轴位置；
+          toXDelta：表示末X轴位置
+          （注意：这里是以手机屏幕x轴y轴在左下角为原点（0，0）的）
+          -->
+    <translate
+        android:duration="260"
+        android:fromXDelta="100%p"
+        android:toXDelta="0%p"></translate>
+</set>
