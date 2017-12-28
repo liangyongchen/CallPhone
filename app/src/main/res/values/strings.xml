@@ -21,6 +21,8 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
+    <string name="source_code_url">https://github.com/liangyongchen/CallPhone</string>
+
     <!-- start pref_general.xml -->
 
     <string name="pref_title_social_recommendations">给予社交的建议</string>

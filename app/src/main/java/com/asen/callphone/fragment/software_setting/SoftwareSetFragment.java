@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
@@ -151,6 +152,18 @@ public class SoftwareSetFragment extends PreferenceFragment implements SharedPre
 
         // endregion
 
+        // region // 源代码
+
+        findPreference("sourceCode").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.source_code_url))));
+                return false;
+            }
+        });
+
+        // endregion
+
     }
 
     private void setClearCacheText() {
@@ -163,6 +176,7 @@ public class SoftwareSetFragment extends PreferenceFragment implements SharedPre
 
     private void createLicenseDialog() {
         Notices notices = new Notices();
+        notices.addNotice(new Notice("CallPhone", "https://github.com/liangyongchen/CallPhone", "Copyright 2017/12/28 AiSen LiangYongchen", new ApacheSoftwareLicense20()));
         notices.addNotice(new Notice("PhotoView", "https://github.com/chrisbanes/PhotoView", "Copyright 2017 Chris Banes", new ApacheSoftwareLicense20()));
         notices.addNotice(new Notice("OkHttp", "https://github.com/square/okhttp", "Copyright 2016 Square, Inc.", new ApacheSoftwareLicense20()));
         notices.addNotice(new Notice("Gson", "https://github.com/google/gson", "Copyright 2008 Google Inc.", new ApacheSoftwareLicense20()));

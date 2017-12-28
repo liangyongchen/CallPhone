@@ -51,18 +51,13 @@
             android:title="版本" />
 
         <Preference
-            android:key="changelog"
-            android:summary="有啥不满望见谅 -_- "
-            android:title="仿照头条app" />
-
-        <Preference
             android:key="licenses"
             android:summary="查看开源许可信息"
             android:title="开源许可" />
 
         <Preference
             android:key="sourceCode"
-            android:summary="QQ咨询：375427684\t\n添加备注格式（姓名+工作类型+电话号码）"
+            android:summary="https://github.com/liangyongchen/CallPhone"
             android:title="源代码" />
 
         <Preference

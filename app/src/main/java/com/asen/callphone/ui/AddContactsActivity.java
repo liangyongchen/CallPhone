@@ -57,13 +57,13 @@ public class AddContactsActivity extends BaseActivity {
                 .subscribe(new Consumer<Object>() {
                     @Override
                     public void accept(@NonNull Object o) throws Exception {
-                        timer.start();
-//                        finish();
+//                        timer.start();
+                        finish();
                     }
                 });
 
         RxView.clicks(mSave)
-                .buffer(1, TimeUnit.SECONDS)
+                .throttleFirst(1, TimeUnit.SECONDS)
                 .subscribe(new Consumer<Object>() {
                     @Override
                     public void accept(@NonNull Object o) throws Exception {
