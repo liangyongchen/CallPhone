@@ -14,7 +14,7 @@ buildscript {
 ext.support_version = "26.0.0-alpha1"  //看这行，这行。
 
 
-// 测试一下上传GitHub上面，在测试一下，哈哈好玩
+// 测试一下上传GitHub上面，在测试一下，哈哈好玩，哈哈哈
 allprojects {
     repositories {
         jcenter()
