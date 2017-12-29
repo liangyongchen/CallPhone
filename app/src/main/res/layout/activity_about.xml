@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="5dp"
-                android:text="世界那么大，我想去看看。\t\n不要那么较真，少生气多放屁。"
+                android:text="世界那么大，我想去看看。"
                 android:textColor="@color/textColorPrimary" />
 
             <TextView
