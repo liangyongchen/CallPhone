@@ -7,6 +7,11 @@
 
 [项目下载](imgs/mail_list.png "点击跳转")  <br>
 
+## 预览
+- ![](imgs/fig_1.gif)<br>
+
+![](imgs/fig_2.gif)
+
 ## 特征
 
 * 首页加载手机通讯录，app程序SQLite联系人数据，本地文件读取数据
@@ -17,11 +22,6 @@
 * 导航栏颜色跟随主题颜色
 * 清楚缓存
 * 动态切换字体大小
-
-## 预览
-- ![](imgs/fig_1.gif)<br>
-
-![](imgs/fig_2.gif)
 
 ## Points
 
