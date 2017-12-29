@@ -5,7 +5,7 @@
 
 这是一款遵循材料设计(Material Design)的app，界面比较简单，代码仅供学习使用，代码还在不断完善
 
-[项目下载](https://github.com/liangyongchen/CallPhone "点击跳转")  <br>
+[项目下载](imgs/mail_list.png "点击跳转")  <br>
 
 ## 特征
 
