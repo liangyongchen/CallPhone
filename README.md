@@ -19,7 +19,9 @@
 * 动态切换字体大小
 
 ## 预览
-![](imgs/fig_1.gif)
+- ![](imgs/fig_1.gif)<br>
+
+![](imgs/fig_2.gif)
 
 ## Points
 
