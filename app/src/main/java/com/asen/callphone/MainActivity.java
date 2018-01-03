@@ -172,6 +172,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         mAdapter = new CallPhoneAdapter(this, mData);
         mListView.setLayoutManager(new StaggeredGridLayoutManager(1, LinearLayoutManager.VERTICAL));
         mListView.setAdapter(mAdapter);
+        mAdapter.setOnLongItemClickListener(this);
     }
 
     private void initHeader() {
@@ -308,13 +309,16 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         return true;
     }
 
+    // endregion
+
+
     // 长按某一个mData 里面的 一个 item 进行事件处理
+
     @Override
     public void onLongItemClick(View v, int postion) {
 
     }
 
-    // endregion
 
 
     @Override
