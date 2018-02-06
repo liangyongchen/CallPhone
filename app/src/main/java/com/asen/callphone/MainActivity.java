@@ -80,7 +80,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         initEvent();
         // 通讯录、SD卡授权、手机型号权限请求码
         requestPermission(PermissionApply.PERMISSION_READ_CONTACTS_and_STORAGE, PermissionApply.PERMISSION_READ_CONTACTS_and_STORAGE_KEY);
-
     }
 
     @Override
@@ -313,12 +312,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
 
     // 长按某一个mData 里面的 一个 item 进行事件处理
-
     @Override
     public void onLongItemClick(View v, int postion) {
 
     }
-
 
 
     @Override

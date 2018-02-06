@@ -1,5 +1,10 @@
 package com.asen.callphone.adapter;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.LayoutInflater;
@@ -109,7 +114,23 @@ public class CallPhoneAdapter extends RecyclerView.Adapter<ViewHolder> {
             mCallPhone.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    // 跳到拨打界面拨打电话
+                    // Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+mData.get(postion).getPhone()));
+                    // intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
+                    // 跳过拨号界面，直接拨打电话
+                    Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + mData.get(postion).getPhone()));
+                    if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                        // TODO: Consider calling
+                        //    ActivityCompat#requestPermissions
+                        // here to request the missing permissions, and then overriding
+                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                        //                                          int[] grantResults)
+                        // to handle the case where the user grants the permission. See the documentation
+                        // for ActivityCompat#requestPermissions for more details.
+                        return;
+                    }
+                    mContext.startActivity(intent);
                 }
             });
 
