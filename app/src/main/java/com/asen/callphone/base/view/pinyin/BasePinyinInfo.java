@@ -35,12 +35,28 @@ public abstract class BasePinyinInfo {
     }
 
 
+    // 是否需要显示拼音
+    private boolean isShowPinyin;
+
+    public boolean isShowPinyin() {
+        return isShowPinyin;
+    }
+
+    public void setShowPinyin(boolean showPinyin) {
+        isShowPinyin = showPinyin;
+    }
+
+
+    private boolean isNeedToPinyin;
 
     // 是否需要转化成拼音
     public boolean isNeedToPinyin() {
-        return true;
+        return isNeedToPinyin;
     }
 
+    public void setNeedToPinyin(boolean needToPinyin) {
+        isNeedToPinyin = needToPinyin;
+    }
 
     // 目标字段
     protected abstract String getTarget();

@@ -34,12 +34,13 @@ public class SuspensionDecoration extends RecyclerView.ItemDecoration {
     private Paint.FontMetrics mFontMetrics;  // 字体度量
 
     private int mRectHeight;             // 分割线用 padding 出来的空间
+    private int mDividerHeight = 1;          // 分割线 (无标题的时候可用)
     private static int mTitleFontSize;   //title字体大小
     private static int COLOR_RECT_BG;    // 标题框背景颜色
     private static int COLOR_TITLE_FONT; // 标题框字体颜色
 
 
-    public SuspensionDecoration(Context mContext,List<? extends BasePinyinInfo> data) {
+    public SuspensionDecoration(Context mContext, List<? extends BasePinyinInfo> data) {
         this.mContext = mContext;
         this.mDatas = data;
         COLOR_RECT_BG = mContext.getResources().getColor(R.color.line_divider);
@@ -71,10 +72,20 @@ public class SuspensionDecoration extends RecyclerView.ItemDecoration {
      */
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+
         super.getItemOffsets(outRect, view, parent, state);
-        // outRect.set(0, mTitleHeight, 0, 0);
-        // 或
-        outRect.top = mRectHeight;
+
+        int position = ((RecyclerView.LayoutParams) view.getLayoutParams()).getViewLayoutPosition();
+
+        boolean asa = mDatas.get(position).isShowPinyin();
+
+        if (mDatas.get(position).isShowPinyin()) {
+            // outRect.set(0, mTitleHeight, 0, 0);
+            // 或
+            outRect.top = mRectHeight;
+        }
+
+
     }
 
     /**
@@ -103,6 +114,7 @@ public class SuspensionDecoration extends RecyclerView.ItemDecoration {
 //
 //        }
 
+
     }
 
     /**
@@ -124,39 +136,48 @@ public class SuspensionDecoration extends RecyclerView.ItemDecoration {
 
             View view = parent.getChildAt(i);
 
-            int index = parent.getChildAdapterPosition(view); // 根据当前 view 获取 在列表中的位置position
+            int position = parent.getChildAdapterPosition(view); // 根据当前 view 获取 在列表中的位置position
 
             if (i != 0) {
                 int top = view.getTop() - mRectHeight;
                 int bottom = view.getTop();
-                int a = view.getPaddingLeft() + 20;
-                int b = view.getTop() - mRectHeight / 2 + mTitleFontSize / 2;
-                drawHeaderRect(c,mDatas.get(index).getFirstPinyin(), left, top, right, bottom);
-
+                if (mDatas.get(position).isShowPinyin()) {
+                    drawHeaderRect(c, position, left, top, right, bottom);
+                } else {
+                    c.drawLine(left, bottom, right, bottom, mPaint);
+                }
             } else {
+
                 int top = parent.getPaddingTop();
-                int suggesTop = view.getBottom() - mRectHeight;
-                if (suggesTop < top) {
-                    top = suggesTop;
+                boolean ss = mDatas.get(position).isShowPinyin();
+                if(mDatas.get(position).isShowPinyin() && position != innn){
+                    innn = position;
+                    int suggesTop = view.getBottom() - mRectHeight;
+                    if (suggesTop < top) {
+                        top = suggesTop;
+                    }
+
                 }
                 int bottom = top + mRectHeight;
-                int a = view.getPaddingLeft() + 20;
-                int b = view.getTop() - mRectHeight / 2 + mTitleFontSize / 2;
-                drawHeaderRect(c,mDatas.get(index).getFirstPinyin(), left, top, right, bottom);
+                drawHeaderRect(c, position, left, top, right, bottom);
             }
+
         }
 
     }
 
-    private void drawHeaderRect(Canvas c,String text, int left, int top, int right, int bottom) {
-        //绘制Header
+    int innn = -1;
+
+    private void drawHeaderRect(Canvas c, int position, int left, int top, int right, int bottom) {
+
+        // 绘制Rect
         c.drawRect(left, top, right, bottom, mPaint);
 
         float titleX = left + 20;
         float titleY = bottom - mFontMetrics.descent;
-        //绘制Title
-        c.drawText(text, titleX, titleY, mTextPaint);
-    }
+        // 绘制Title
+        c.drawText(mDatas.get(position).getFirstPinyin(), titleX, titleY, mTextPaint);
 
+    }
 
 }

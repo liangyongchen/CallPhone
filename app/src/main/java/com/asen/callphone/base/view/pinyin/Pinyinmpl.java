@@ -17,46 +17,33 @@ public class Pinyinmpl implements IPinyin {
     @Override
     public IPinyin showPinyin(List<? extends BasePinyinInfo> datas) {
 
-        if(datas == null || datas.isEmpty()){
+        if (datas == null || datas.isEmpty()) {
             return this;
         }
 
-        for (int i = 0; i <datas.size() ; i++) {
+        for (int i = 0; i < datas.size(); i++) {
 
-            BasePinyinInfo base =  datas.get(i);
+            BasePinyinInfo base = datas.get(i);
 
-            StringBuilder pySB = new StringBuilder();
+            if (base.isNeedToPinyin()) {
 
-            if(base.isNeedToPinyin()){
+                // 第一个显示标题
+                if (i > 0) {
 
-                String target = base.getTarget();
+                    if (datas.get(i).getFirstPinyin().equals(datas.get(i - 1).getFirstPinyin())) {
+                        base.setShowPinyin(false);
+                    }else {
+                        base.setShowPinyin(true);
+                    }
 
-                for (int j = 0; j <target.length() ; j++) {
-
-                    // 利用TinyPinyin将char转成拼音
-                    // 查看源码，方法内 如果char为汉字，则返回大写拼音
-                    // 如果c不是汉字，则返回String.valueOf(c)
-                    pySB.append(Pinyin.toPinyin(target.charAt(j)));
-
+                } else {
+                    base.setShowPinyin(true);
                 }
 
-                // 设置字段的拼音
-                base.setPinyin(pySB.toString());
-
-                // 获取第一个首字母
-                String firstChar = pySB.toString().substring(0,1);
-
-                if(firstChar.matches("[A-Z]")){
-
-                    base.setFirstPinyin(firstChar);
-
-                }else{
-
-                    base.setFirstPinyin("#");
-
-                }
             }
+
         }
+
         return this;
     }
 
@@ -64,26 +51,26 @@ public class Pinyinmpl implements IPinyin {
     @Override
     public IPinyin sortPinyinList(List<? extends BasePinyinInfo> datas) {
 
-        if(datas == null || datas.isEmpty()){
+        if (datas == null || datas.isEmpty()) {
             return this;
         }
 
-        showPinyin(datas);
+        needToPinyin(datas);
 
         // 对数据进行排序
         Collections.sort(datas, new Comparator<BasePinyinInfo>() {
             @Override
             public int compare(BasePinyinInfo o1, BasePinyinInfo o2) {
 
-                if(o1.getFirstPinyin().equals("#")){
+                if (o1.getFirstPinyin().equals("#")) {
 
-                    return  1;
+                    return 1;
 
-                }else if(o2.getFirstPinyin().equals("#")){
+                } else if (o2.getFirstPinyin().equals("#")) {
 
                     return -1;
 
-                }else{
+                } else {
 
                     return o1.getPinyin().compareTo(o2.getPinyin());
                 }
@@ -93,7 +80,50 @@ public class Pinyinmpl implements IPinyin {
         return this;
     }
 
+    @Override
+    public IPinyin needToPinyin(List<? extends BasePinyinInfo> datas) {
+        if (datas == null || datas.isEmpty()) {
+            return this;
+        }
 
+        for (int i = 0; i < datas.size(); i++) {
+
+            BasePinyinInfo base = datas.get(i);
+
+            StringBuilder pySB = new StringBuilder();
+
+            base.setNeedToPinyin(true);
+
+            String target = base.getTarget();
+
+            for (int j = 0; j < target.length(); j++) {
+
+                // 利用TinyPinyin将char转成拼音
+                // 查看源码，方法内 如果char为汉字，则返回大写拼音
+                // 如果c不是汉字，则返回String.valueOf(c)
+                pySB.append(Pinyin.toPinyin(target.charAt(j)));
+
+            }
+
+            // 设置字段的拼音
+            base.setPinyin(pySB.toString());
+
+            // 获取第一个首字母
+            String firstChar = pySB.toString().substring(0, 1);
+
+            if (firstChar.matches("[A-Z]")) {
+
+                base.setFirstPinyin(firstChar);
+
+            } else {
+
+                base.setFirstPinyin("#");
+
+            }
+
+        }
+        return this;
+    }
 
 
 }

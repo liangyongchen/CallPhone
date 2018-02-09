@@ -36,7 +36,6 @@ import com.asen.callphone.base.setting.SettingUtil;
 import com.asen.callphone.base.util.CommonUtil;
 import com.asen.callphone.base.util.IntentUtil;
 import com.asen.callphone.base.view.dailog.MessageDialogUtil;
-import com.asen.callphone.base.view.pinyin.IPinyin;
 import com.asen.callphone.base.view.pinyin.Pinyinmpl;
 import com.asen.callphone.base.view.recycler.SuspensionDecoration;
 import com.asen.callphone.bll.CallPhoneBll;
@@ -76,7 +75,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     // RecyclerView 设置分割线和字母的显示
     private SuspensionDecoration mDecoration;
-    private IPinyin iIPyinyin;
 
 
     @Override
@@ -176,10 +174,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         // 添加SD卡文件存储的手机联系人
 
 
-        // 把数据转拼音并排序
-        iIPyinyin = new Pinyinmpl();
-        iIPyinyin.showPinyin(mData);
-        iIPyinyin.sortPinyinList(mData);
+        // 把数据转拼音并排序，三步走，先设置成需要转拼音，在排序，排序后筛选需要显示的标题
+        new Pinyinmpl().needToPinyin(mData).sortPinyinList(mData).showPinyin(mData);
 
         // 初始化适配器
         mAdapter = new CallPhoneAdapter(this, mData);

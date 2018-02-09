@@ -12,11 +12,18 @@ public interface IPinyin {
      * 此接口实现数据的升降序和拼音的
      */
 
-    // 显示拼音
-    IPinyin showPinyin(List<? extends BasePinyinInfo> data);
+    // 第一步：需要转化拼音
+    IPinyin needToPinyin(List<? extends BasePinyinInfo> datas);
 
-    // 对拼音排序
-    IPinyin sortPinyinList(List<? extends BasePinyinInfo> data);
+    // 第二步：对拼音排序
+    IPinyin sortPinyinList(List<? extends BasePinyinInfo> datas);
+
+    // 第三步：显示拼音（筛选）
+    IPinyin showPinyin(List<? extends BasePinyinInfo> datas);
+
+
+
+
 
 
 
