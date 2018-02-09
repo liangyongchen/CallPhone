@@ -87,7 +87,7 @@ public class DBUtil {
             app += " and mailbox = " + mailbox;
         }
 
-        String sql = "select count(*) as ResultCount from CallPhoneTable where " + app + "order by ";
+        String sql = "select count(*) as ResultCount from CallPhoneTable where " + app;
         Cursor c = null;
 
         try {

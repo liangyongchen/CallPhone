@@ -121,13 +121,17 @@ public class SuspensionDecoration extends RecyclerView.ItemDecoration {
         int left = parent.getPaddingLeft();
         int right = parent.getWidth() - parent.getPaddingRight();
         for (int i = 0; i < chidCount; i++) {
+
             View view = parent.getChildAt(i);
+
+            int index = parent.getChildAdapterPosition(view); // 根据当前 view 获取 在列表中的位置position
+
             if (i != 0) {
                 int top = view.getTop() - mRectHeight;
                 int bottom = view.getTop();
                 int a = view.getPaddingLeft() + 20;
                 int b = view.getTop() - mRectHeight / 2 + mTitleFontSize / 2;
-                drawHeaderRect(c, left, top, right, bottom);
+                drawHeaderRect(c,mDatas.get(index).getFirstPinyin(), left, top, right, bottom);
 
             } else {
                 int top = parent.getPaddingTop();
@@ -138,20 +142,20 @@ public class SuspensionDecoration extends RecyclerView.ItemDecoration {
                 int bottom = top + mRectHeight;
                 int a = view.getPaddingLeft() + 20;
                 int b = view.getTop() - mRectHeight / 2 + mTitleFontSize / 2;
-                drawHeaderRect(c, left, top, right, bottom);
+                drawHeaderRect(c,mDatas.get(index).getFirstPinyin(), left, top, right, bottom);
             }
         }
 
     }
 
-    private void drawHeaderRect(Canvas c, int left, int top, int right, int bottom) {
+    private void drawHeaderRect(Canvas c,String text, int left, int top, int right, int bottom) {
         //绘制Header
         c.drawRect(left, top, right, bottom, mPaint);
 
         float titleX = left + 20;
         float titleY = bottom - mFontMetrics.descent;
         //绘制Title
-        c.drawText("北京", titleX, titleY, mTextPaint);
+        c.drawText(text, titleX, titleY, mTextPaint);
     }
 
 
