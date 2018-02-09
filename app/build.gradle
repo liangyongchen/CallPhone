@@ -151,6 +151,8 @@ dependencies {
     compile 'com.annimon:stream:1.1.5'
     // 协议Dialog
     compile 'de.psdev.licensesdialog:licensesdialog:1.8.2'
+    // 拼音
+    compile 'com.github.promeg:tinypinyin:1.0.0' // ~80KB
 
     apply plugin: 'com.android.application'
 

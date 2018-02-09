@@ -1,11 +1,12 @@
 package com.asen.callphone.model;
 
+import com.asen.callphone.base.view.pinyin.BasePinyinInfo;
+
 /**
  * Created by asus on 2017/11/24.
  */
 
-public class CallPhoneModel {
-
+public class CallPhoneModel extends BasePinyinInfo{
 
     // 数据库建表
     private String id;      // id
@@ -17,6 +18,8 @@ public class CallPhoneModel {
     private String type;    // 电话号码类型（设备的、app数据库的、sd卡文件上面的）
     private String photo;
 
+
+
     public String getId() {
         return id;
     }
@@ -24,6 +27,8 @@ public class CallPhoneModel {
     public void setId(String id) {
         this.id = id;
     }
+
+
 
     public String getName() {
         return name;
@@ -33,6 +38,8 @@ public class CallPhoneModel {
         this.name = name;
     }
 
+
+
     public String getPhone() {
         return phone;
     }
@@ -40,6 +47,8 @@ public class CallPhoneModel {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
+
 
     public String getMailbox() {
         return mailbox;
@@ -49,6 +58,8 @@ public class CallPhoneModel {
         this.mailbox = mailbox;
     }
 
+
+
     public String getCollect() {
         return collect;
     }
@@ -57,6 +68,8 @@ public class CallPhoneModel {
         this.collect = collect;
     }
 
+
+
     public String getGroup() {
         return group;
     }
@@ -64,6 +77,8 @@ public class CallPhoneModel {
     public void setGroup(String group) {
         this.group = group;
     }
+
+
 
     public String getType() {
         return type;
@@ -74,6 +89,7 @@ public class CallPhoneModel {
     }
 
 
+
     public String getPhoto() {
         return photo;
     }
@@ -82,4 +98,25 @@ public class CallPhoneModel {
         this.photo = photo;
     }
 
+
+
+
+    // 是否悬标题框
+    private boolean isSuspensionTag;
+
+    public boolean isSuspensionTag() {
+        return isSuspensionTag;
+    }
+
+    public void setSuspensionTag(boolean suspensionTag) {
+        isSuspensionTag = suspensionTag;
+    }
+
+
+
+    // 用名字来转化拼音
+    @Override
+    protected String getTarget() {
+        return name;
+    }
 }

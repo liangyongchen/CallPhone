@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <LinearLayout
+    <com.asen.callphone.base.view.LinearLayoutPhone
         android:id="@+id/btnCallItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -71,13 +71,15 @@
             android:layout_height="35dp"
             app:srcCompat="@drawable/icon_call" />
 
-    </LinearLayout>
+    </com.asen.callphone.base.view.LinearLayoutPhone>
 
     <View
+        android:id="@+id/line"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
+        android:visibility="gone"
         android:background="#808080" />
 
     <TextView
