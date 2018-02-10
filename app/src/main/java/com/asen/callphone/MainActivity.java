@@ -179,11 +179,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
         // 初始化适配器
         mAdapter = new CallPhoneAdapter(this, mData);
-        mListView.setLayoutManager(new StaggeredGridLayoutManager(1, LinearLayoutManager.VERTICAL));
+        mAdapter.setOnLongItemClickListener(this);
         mListView.setAdapter(mAdapter);
+        mListView.setLayoutManager(new StaggeredGridLayoutManager(1, LinearLayoutManager.VERTICAL));
         mListView.addItemDecoration(mDecoration = new SuspensionDecoration(this, mData));
 
-        mAdapter.setOnLongItemClickListener(this);
     }
 
     private void initHeader() {

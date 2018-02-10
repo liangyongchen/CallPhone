@@ -75,7 +75,9 @@ public class SuspensionDecoration extends RecyclerView.ItemDecoration {
 
         super.getItemOffsets(outRect, view, parent, state);
 
-        int position = ((RecyclerView.LayoutParams) view.getLayoutParams()).getViewLayoutPosition();
+//        int position = ((RecyclerView.LayoutParams) view.getLayoutParams()).getViewLayoutPosition();
+
+        int position = parent.getChildAdapterPosition(view);
 
         boolean asa = mDatas.get(position).isShowPinyin();
 
@@ -83,6 +85,8 @@ public class SuspensionDecoration extends RecyclerView.ItemDecoration {
             // outRect.set(0, mTitleHeight, 0, 0);
             // 或
             outRect.top = mRectHeight;
+        } else {
+            outRect.top = mDividerHeight;
         }
 
 
@@ -111,6 +115,16 @@ public class SuspensionDecoration extends RecyclerView.ItemDecoration {
 //
 //            c.drawRect(left, top, right, bottom, mPaint);
 //            c.drawText("北京", view.getPaddingLeft() + 20, view.getTop() - mRectHeight / 2 + mTitleFontSize / 2, mTextPaint);
+//
+//        }
+
+//        int chidCount = parent.getChildCount();
+//
+//        int  left =
+//
+//        for (int i = 0; i <chidCount ; i++) {
+//
+//
 //
 //        }
 
@@ -148,15 +162,15 @@ public class SuspensionDecoration extends RecyclerView.ItemDecoration {
                 }
             } else {
 
-                int top = parent.getPaddingTop();
-                boolean ss = mDatas.get(position).isShowPinyin();
-                if(mDatas.get(position).isShowPinyin() && position != innn){
-                    innn = position;
-                    int suggesTop = view.getBottom() - mRectHeight;
-                    if (suggesTop < top) {
-                        top = suggesTop;
-                    }
+                int top = parent.getPaddingTop(); // 父控件的最上端
 
+                int suggesTop = view.getBottom() - mRectHeight; // 获取view最上层的高度
+                if (position == 0) {
+                    if (suggesTop < top)
+                        top = suggesTop;
+                } else if (mDatas.get(position + 1).isShowPinyin()) {      // 这句有问题，需要修改一下，
+                    if (suggesTop < top)
+                        top = suggesTop;
                 }
                 int bottom = top + mRectHeight;
                 drawHeaderRect(c, position, left, top, right, bottom);
@@ -165,8 +179,6 @@ public class SuspensionDecoration extends RecyclerView.ItemDecoration {
         }
 
     }
-
-    int innn = -1;
 
     private void drawHeaderRect(Canvas c, int position, int left, int top, int right, int bottom) {
 
