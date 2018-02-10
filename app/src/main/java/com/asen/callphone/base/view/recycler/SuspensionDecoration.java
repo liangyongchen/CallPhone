@@ -118,16 +118,6 @@ public class SuspensionDecoration extends RecyclerView.ItemDecoration {
 //
 //        }
 
-//        int chidCount = parent.getChildCount();
-//
-//        int  left =
-//
-//        for (int i = 0; i <chidCount ; i++) {
-//
-//
-//
-//        }
-
 
     }
 
@@ -168,7 +158,7 @@ public class SuspensionDecoration extends RecyclerView.ItemDecoration {
                 if (position == 0) {
                     if (suggesTop < top)
                         top = suggesTop;
-                } else if (mDatas.get(position + 1).isShowPinyin()) {      // 这句有问题，需要修改一下，
+                } else if (mDatas.get(position + 1).isShowPinyin()) { // 判断当前的view的下一个view是否显示 拼音 ，显示当前 view 的 bottpm - rect 的 高度 获取 top ，让后让画布画出来
                     if (suggesTop < top)
                         top = suggesTop;
                 }
