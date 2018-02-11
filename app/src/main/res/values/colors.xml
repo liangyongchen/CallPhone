@@ -12,6 +12,8 @@
     <color name="navigationBarColor">#00bcd4</color>
     <color name="line_divider">@color/Grey300</color>
     <color name="index_view_bg">@color/Grey500</color>
+    <!-- 0-99 代表透明度 前面的50代表透明度-->
+    <color name="index_text_bg">#50757575</color>
 
 
     <color name="colorPrimary_night">#35464e</color>

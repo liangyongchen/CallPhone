@@ -53,7 +53,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, CallPhoneAdapter.OnLongItemClickListener {
+public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener,
+        CallPhoneAdapter.OnLongItemClickListener, IndexView.OnIndexText {
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -61,7 +62,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     RecyclerView mListView;
     @BindView(R.id.content_main)
     FrameLayout mContentMain;
-    @BindView(R.id.mIndexView)
+    @BindView(R.id.indexText)
+    TextView mIndexText;
+    @BindView(R.id.indexView)
     IndexView mIndexView;
     @BindView(R.id.fab)
     FloatingActionButton mFab;
@@ -87,6 +90,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         ButterKnife.bind(this);
         initToobar();
         initEvent();
+
+        mIndexView.setOnIndexText(this); // 设置索引文本
+
         // 通讯录、SD卡授权、手机型号权限请求码
         requestPermission(PermissionApply.PERMISSION_READ_CONTACTS_and_STORAGE, PermissionApply.PERMISSION_READ_CONTACTS_and_STORAGE_KEY);
     }
@@ -348,4 +354,20 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 break;
         }
     }
+
+    // region // 索引后的文本
+    @Override
+    public void onIndexText(View v, String text, int position) {
+        mIndexText.setVisibility(View.VISIBLE);
+        mIndexText.setText(text);
+    }
+
+    @Override
+    public void onHide() {
+        mIndexText.setVisibility(View.GONE);
+        mIndexText.setText("");
+    }
+
+    // endregion
+
 }

@@ -7,6 +7,8 @@ import android.support.annotation.Nullable;
 import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.MotionEvent;
 import android.view.View;
 
 import com.asen.callphone.R;
@@ -113,10 +115,13 @@ public class IndexView extends View {
 
     // 字体画笔
     private TextPaint textPaint;
+    private Paint.FontMetrics mFontMetrics;  // 字体度量
 
     private static int COLOR_BG;   // 背景颜色
     private static int COLOR_TEXT; // 标题框字体颜色
+    private static int TEXT_SIZE;  // 文字尺寸
 
+    private boolean isTouch = false; // 判断是否都触摸到 IndexView
 
     public IndexView(Context context) {
         super(context);
@@ -141,13 +146,19 @@ public class IndexView extends View {
         COLOR_BG = mContext.getResources().getColor(R.color.index_view_bg);
         COLOR_TEXT = mContext.getResources().getColor(R.color.textColorPrimary);
 
+        // 设置文字大小
+        TEXT_SIZE = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 16, mContext.getResources().getDisplayMetrics());
+
         // 初始化画笔
         bgPaint = new Paint();
         bgPaint.setColor(COLOR_BG);
+        bgPaint.setAlpha(100); // 设置背景的透明度
         bgPaint.setAntiAlias(true); // 设置锯齿
 
         textPaint = new TextPaint();
+        textPaint.setTextSize(TEXT_SIZE);
         textPaint.setColor(COLOR_TEXT);
+        mFontMetrics = textPaint.getFontMetrics();
 
     }
 
@@ -171,6 +182,7 @@ public class IndexView extends View {
         Log.e("log", "onMeasure");
     }
 
+    // 这时在父容器里面 自身所占的 宽高
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {// 48、1230、0、0
         super.onSizeChanged(w, h, oldw, oldh);
@@ -183,9 +195,9 @@ public class IndexView extends View {
 
     }
 
-
     int left, top, right, bootom;
 
+    // 这时在父容器布局的尺寸
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) { // 尺寸是否改变：左上右下 672、0、720、1230
         super.onLayout(changed, l, t, r, b);
@@ -194,14 +206,33 @@ public class IndexView extends View {
         top = t;
         right = r;
         bootom = b;
+
+
     }
+
+
+    int textWidth, textHeiht;
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         Log.e("log", "onDraw");
 
-        canvas.drawRect(left, top, right, bootom, bgPaint);
+        if (isTouch) {
+            bgPaint.setAlpha(100); // 触摸到的时候设置透明度为100
+        } else {
+            bgPaint.setAlpha(0); // 没有触摸到的时候设置透明度为0
+        }
+
+        canvas.drawRect(0, 0, mViewWidth, mViewHeigth, bgPaint);
+
+        for (int i = 0; i < arrays.length; i++) {
+
+            textWidth = (mViewWidth - (int) textPaint.measureText(arrays[i])) / 2; // textPaint.measureText 获取字符串的宽度值
+            textHeiht = (mViewHeigth / arrays.length - (int) mFontMetrics.descent - (int) mFontMetrics.leading) * (i + 1);
+            canvas.drawText(arrays[i], textWidth, textHeiht, textPaint);
+
+        }
 
     }
 
@@ -209,6 +240,7 @@ public class IndexView extends View {
     protected void dispatchDraw(Canvas canvas) {
         super.dispatchDraw(canvas);
         Log.e("log", "dispatchDraw");
+
     }
 
     @Override
@@ -221,6 +253,100 @@ public class IndexView extends View {
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         Log.e("log", "onDetachedFromWindow");
+    }
+
+
+    int position = -1;
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        int index = 0;
+        int y;
+        switch (event.getAction()) {
+
+            case MotionEvent.ACTION_DOWN:
+
+                y = (int) event.getY();
+
+//                Log.d("Y == ", y + "A");
+//                Log.d("Y == ", textHeiht + "B");
+//                Log.d("Y == ", mViewHeigth / arrays.length + "C  " + mFontMetrics.descent + "C   " + mFontMetrics.leading + "C");
+//                Log.d("Y == ", (y / ((textHeiht) / arrays.length)) + "D");
+
+                index = y / ((textHeiht) / arrays.length); // 获取当前位置
+
+                if (index < 1) {
+                    index = 0;
+                } else if (index >= arrays.length) {
+                    index = arrays.length - 1;
+                }
+
+
+                if (position != index) {
+                    position = index;
+                    //Log.d("Y == ", arrays[position]);
+                    if (indexText != null) {
+                        indexText.onIndexText(this, arrays[position], position);
+                    }
+                }
+
+                isTouch = true;
+                break;
+            case MotionEvent.ACTION_UP:
+                if (indexText != null) {
+                    indexText.onHide();
+                }
+                isTouch = false;
+                break;
+            case MotionEvent.ACTION_MOVE:
+
+                y = (int) event.getY();
+
+//                Log.d("Y == ", y + "A");
+//                Log.d("Y == ", textHeiht + "B");
+//                Log.d("Y == ", mViewHeigth / arrays.length + "C  " + mFontMetrics.descent + "C   " + mFontMetrics.leading + "C");
+//                Log.d("Y == ", (y / ((textHeiht) / arrays.length)) + "D");
+
+                index = y / ((textHeiht) / arrays.length); // 获取当前位置
+
+                if (index < 1) {
+                    index = 0;
+                } else if (index >= arrays.length) {
+                    index = arrays.length - 1;
+                }
+
+
+                if (position != index) {
+                    position = index;
+                    //Log.d("Y == ", arrays[position]);
+                    if (indexText != null) {
+                        indexText.onIndexText(this, arrays[position], position);
+                    }
+                }
+
+                isTouch = true;
+                break;
+            case MotionEvent.ACTION_CANCEL:
+                if (indexText != null) {
+                    indexText.onHide();
+                }
+                isTouch = false;
+                break;
+        }
+        invalidate();
+        return true; // 返回true默认是执行该控件的事件处理
+    }
+
+    public interface OnIndexText {
+        void onIndexText(View v, String text, int position);
+
+        void onHide();
+    }
+
+    private OnIndexText indexText;
+
+    public void setOnIndexText(OnIndexText index) {
+        indexText = index;
     }
 
 }
