@@ -82,6 +82,7 @@ public class Pinyinmpl implements IPinyin {
 
     @Override
     public IPinyin needToPinyin(List<? extends BasePinyinInfo> datas) {
+
         if (datas == null || datas.isEmpty()) {
             return this;
         }

@@ -9,6 +9,7 @@
 
 
     <LinearLayout
+        android:id="@+id/mToolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary"
@@ -46,6 +47,7 @@
         android:drawablePadding="10dp"
         android:hint="电话"
         android:singleLine="true"
+        android:inputType="numberDecimal"
         android:textColor="@color/textColorPrimary" />
 
     <EditText

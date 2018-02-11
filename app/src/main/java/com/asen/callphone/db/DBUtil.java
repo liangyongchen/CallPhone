@@ -76,7 +76,7 @@ public class DBUtil {
         String app = "";
 
         if (StringUtils.isNotEmpty(name)) {
-            app += " name = " + name;
+            app += " name = '" + name + "'";
         }
 
         if (StringUtils.isNotEmpty(phone)) {
@@ -84,7 +84,7 @@ public class DBUtil {
         }
 
         if (StringUtils.isNotEmpty(mailbox)) {
-            app += " and mailbox = " + mailbox;
+            app += " and mailbox = '" + mailbox + "'";
         }
 
         String sql = "select count(*) as ResultCount from CallPhoneTable where " + app;

@@ -1,4 +1,4 @@
-package com.asen.callphone.base.view.recycler;
+package com.asen.callphone.base.view.pinyin.recycler;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -39,6 +39,9 @@ public class SuspensionDecoration extends RecyclerView.ItemDecoration {
     private static int COLOR_RECT_BG;    // 标题框背景颜色
     private static int COLOR_TITLE_FONT; // 标题框字体颜色
 
+    public  void setData(List<? extends BasePinyinInfo> data){
+        this.mDatas = data;
+    }
 
     public SuspensionDecoration(Context mContext, List<? extends BasePinyinInfo> data) {
         this.mContext = mContext;
@@ -143,22 +146,33 @@ public class SuspensionDecoration extends RecyclerView.ItemDecoration {
             int position = parent.getChildAdapterPosition(view); // 根据当前 view 获取 在列表中的位置position
 
             if (i != 0) {
+
                 int top = view.getTop() - mRectHeight;
                 int bottom = view.getTop();
+
                 if (mDatas.get(position).isShowPinyin()) {
+
                     drawHeaderRect(c, position, left, top, right, bottom);
+
                 } else {
+
                     c.drawLine(left, bottom, right, bottom, mPaint);
                 }
+
             } else {
 
                 int top = parent.getPaddingTop(); // 父控件的最上端
 
                 int suggesTop = view.getBottom() - mRectHeight; // 获取view最上层的高度
+
                 if (position == 0) {
+
                     if (suggesTop < top)
                         top = suggesTop;
-                } else if (mDatas.get(position + 1).isShowPinyin()) { // 判断当前的view的下一个view是否显示 拼音 ，显示当前 view 的 bottpm - rect 的 高度 获取 top ，让后让画布画出来
+
+                    // 判断当前的view的下一个view是否显示 拼音 ，显示当前 view 的 bottpm - rect 的 高度 获取 top ，让后让画布画出来
+                } else if (mDatas.get(position + 1).isShowPinyin()) {
+
                     if (suggesTop < top)
                         top = suggesTop;
                 }

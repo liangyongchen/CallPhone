@@ -42,5 +42,15 @@
 
     <!-- end 滑动返回 -->
 
+    <!-- start 侧滑高仿qq-->
+
+    <declare-styleable name="SwipeMenuLayout">
+        <attr name="swipeEnable" format="boolean"/>
+        <attr name="ios" format="boolean"/>
+        <attr name="leftSwipe" format="boolean"/>
+    </declare-styleable>
+
+    <!-- end 侧滑高仿qq-->
+
 
 </resources>

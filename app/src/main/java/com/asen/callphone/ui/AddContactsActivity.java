@@ -2,11 +2,15 @@ package com.asen.callphone.ui;
 
 import android.os.Bundle;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.asen.callphone.R;
 import com.asen.callphone.base.app.BaseActivity;
+import com.asen.callphone.base.setting.SettingUtil;
+import com.asen.callphone.base.util.CommonUtil;
+import com.asen.callphone.base.util.IntentUtil;
 import com.asen.callphone.db.DBUtil;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxbinding2.widget.RxTextView;
@@ -25,6 +29,8 @@ import io.reactivex.functions.Consumer;
 
 public class AddContactsActivity extends BaseActivity {
 
+    @BindView(R.id.mToolbar)
+    LinearLayout mToolbar;
     @BindView(R.id.cancel)
     TextView mCancel;
     @BindView(R.id.save)
@@ -47,7 +53,7 @@ public class AddContactsActivity extends BaseActivity {
     }
 
     public void initView(Bundle savedInstanceState) {
-
+        mToolbar.setBackgroundColor(SettingUtil.getInstance().getColor());
     }
 
     public void initEvent() {
@@ -75,7 +81,7 @@ public class AddContactsActivity extends BaseActivity {
                                     mMailbox.getText().toString().trim())
                                     ) {
                                 Toast.makeText(AddContactsActivity.this, "保存成功", Toast.LENGTH_SHORT).show();
-                                finish();
+                                IntentUtil.ResultActivitys(AddContactsActivity.this,new Bundle(),IntentUtil.AC_AddContacts, CommonUtil.enumActionType.ACTION_SIGN_OUT);
                             } else {
                                 Toast.makeText(AddContactsActivity.this, "保存失败\n电话号码格式错误", Toast.LENGTH_SHORT).show();
                             }

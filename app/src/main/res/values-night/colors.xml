@@ -9,4 +9,5 @@
     <color name="windowBackground">@color/Grey900</color>
     <color name="navigationBarColor">#35464e</color>
     <color name="line_divider">@color/Grey700</color>
+    <color name="index_view_bg">@color/Grey200</color>
 </resources>

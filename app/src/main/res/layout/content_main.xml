@@ -20,7 +20,7 @@
   ~ Weibo:   http://weibo.com/GcsSloop
   -->
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/content_main"
@@ -35,4 +35,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-</RelativeLayout>
+    <com.asen.callphone.base.view.pinyin.IndexView
+        android:id="@+id/mIndexView"
+        android:layout_width="24dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="right" />
+
+</FrameLayout>

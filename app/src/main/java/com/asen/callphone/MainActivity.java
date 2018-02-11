@@ -22,8 +22,8 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,8 +36,9 @@ import com.asen.callphone.base.setting.SettingUtil;
 import com.asen.callphone.base.util.CommonUtil;
 import com.asen.callphone.base.util.IntentUtil;
 import com.asen.callphone.base.view.dailog.MessageDialogUtil;
+import com.asen.callphone.base.view.pinyin.IndexView;
 import com.asen.callphone.base.view.pinyin.Pinyinmpl;
-import com.asen.callphone.base.view.recycler.SuspensionDecoration;
+import com.asen.callphone.base.view.pinyin.recycler.SuspensionDecoration;
 import com.asen.callphone.bll.CallPhoneBll;
 import com.asen.callphone.db.DBUtil;
 import com.asen.callphone.model.CallPhoneModel;
@@ -59,7 +60,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @BindView(R.id.listView)
     RecyclerView mListView;
     @BindView(R.id.content_main)
-    RelativeLayout mContentMain;
+    FrameLayout mContentMain;
+    @BindView(R.id.mIndexView)
+    IndexView mIndexView;
     @BindView(R.id.fab)
     FloatingActionButton mFab;
     @BindView(R.id.switchNightMode)
@@ -337,6 +340,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         switch (requestCode) {
             case IntentUtil.AC_Setting:
                 mFab.setBackgroundTintList(ColorStateList.valueOf(SettingUtil.getInstance().getColor()));
+                break;
+            case IntentUtil.AC_AddContacts:
+                // 数据库查询，不应该刷新界面，用户体验效果不好（数据库查询空指针问题暂时未解决）
+                getWindow().setWindowAnimations(R.style.WindowAnimationFadeInOut); // 加个动态，把体验效果加上去
+                recreate();
                 break;
         }
     }

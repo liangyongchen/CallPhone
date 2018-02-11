@@ -11,6 +11,8 @@
     <color name="windowBackground">@color/Grey100</color>
     <color name="navigationBarColor">#00bcd4</color>
     <color name="line_divider">@color/Grey300</color>
+    <color name="index_view_bg">@color/Grey500</color>
+
 
     <color name="colorPrimary_night">#35464e</color>
     <color name="colorPrimaryDark_night">#212a2f</color>
