@@ -11,7 +11,13 @@ import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.annimon.stream.Collectors;
+import com.annimon.stream.Stream;
 import com.asen.callphone.R;
+
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.List;
 
 /**
  * 索引拼音
@@ -104,11 +110,17 @@ public class IndexView extends View {
     // endregion
 
 
-    // 需要画的字母
-    private String[] arrays = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "#"};
+    // 需要画的字母(自己定义的数据)
+//    private String[] arrays = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "#"};
+    private String[] arrays;
+    // 获取通讯录传过来的数据
+    private List<? extends BasePinyinInfo> mDatas;
 
     // 右边显示索引的宽
     private int mViewWidth, mViewHeigth;
+
+    // textWidth：索引字母的文字宽度，textHeiht：获取所有字母的总体高度
+    int textWidth, textHeiht;
 
     // 背景画笔
     private Paint bgPaint;
@@ -192,26 +204,14 @@ public class IndexView extends View {
         mViewWidth = w;
         mViewHeigth = h;
 
-
     }
 
-    int left, top, right, bootom;
-
-    // 这时在父容器布局的尺寸
+    // 这时在父容器布局的尺寸：左上右下坐标
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) { // 尺寸是否改变：左上右下 672、0、720、1230
         super.onLayout(changed, l, t, r, b);
         Log.e("log", "onLayout");
-        left = l;
-        top = t;
-        right = r;
-        bootom = b;
-
-
     }
-
-
-    int textWidth, textHeiht;
 
     @Override
     protected void onDraw(Canvas canvas) {
@@ -228,10 +228,11 @@ public class IndexView extends View {
 
         for (int i = 0; i < arrays.length; i++) {
 
-            textWidth = (mViewWidth - (int) textPaint.measureText(arrays[i])) / 2; // textPaint.measureText 获取字符串的宽度值
-            textHeiht = (mViewHeigth / arrays.length - (int) mFontMetrics.descent - (int) mFontMetrics.leading) * (i + 1);
-            canvas.drawText(arrays[i], textWidth, textHeiht, textPaint);
-
+            if (StringUtils.isNotEmpty(arrays[i])) {
+                textWidth = (mViewWidth - (int) textPaint.measureText(arrays[i])) / 2; // textPaint.measureText 获取字符串的宽度值
+                textHeiht = (mViewHeigth / arrays.length - (int) mFontMetrics.descent - (int) mFontMetrics.leading) * (i + 1);
+                canvas.drawText(arrays[i], textWidth, textHeiht, textPaint);
+            }
         }
 
     }
@@ -264,14 +265,11 @@ public class IndexView extends View {
         int y;
         switch (event.getAction()) {
 
+            // 点击按下和触摸滑动的时候执行
             case MotionEvent.ACTION_DOWN:
+            case MotionEvent.ACTION_MOVE:
 
                 y = (int) event.getY();
-
-//                Log.d("Y == ", y + "A");
-//                Log.d("Y == ", textHeiht + "B");
-//                Log.d("Y == ", mViewHeigth / arrays.length + "C  " + mFontMetrics.descent + "C   " + mFontMetrics.leading + "C");
-//                Log.d("Y == ", (y / ((textHeiht) / arrays.length)) + "D");
 
                 index = y / ((textHeiht) / arrays.length); // 获取当前位置
 
@@ -281,61 +279,50 @@ public class IndexView extends View {
                     index = arrays.length - 1;
                 }
 
-
                 if (position != index) {
                     position = index;
                     //Log.d("Y == ", arrays[position]);
-                    if (indexText != null) {
+                    if (indexText != null && StringUtils.isNotEmpty(arrays[position])) {
                         indexText.onIndexText(this, arrays[position], position);
                     }
                 }
 
                 isTouch = true;
                 break;
+
+            // 事件抬起和事件取消的时候执行
+            case MotionEvent.ACTION_CANCEL:
             case MotionEvent.ACTION_UP:
                 if (indexText != null) {
                     indexText.onHide();
                 }
                 isTouch = false;
                 break;
-            case MotionEvent.ACTION_MOVE:
 
-                y = (int) event.getY();
-
-//                Log.d("Y == ", y + "A");
-//                Log.d("Y == ", textHeiht + "B");
-//                Log.d("Y == ", mViewHeigth / arrays.length + "C  " + mFontMetrics.descent + "C   " + mFontMetrics.leading + "C");
-//                Log.d("Y == ", (y / ((textHeiht) / arrays.length)) + "D");
-
-                index = y / ((textHeiht) / arrays.length); // 获取当前位置
-
-                if (index < 1) {
-                    index = 0;
-                } else if (index >= arrays.length) {
-                    index = arrays.length - 1;
-                }
-
-
-                if (position != index) {
-                    position = index;
-                    //Log.d("Y == ", arrays[position]);
-                    if (indexText != null) {
-                        indexText.onIndexText(this, arrays[position], position);
-                    }
-                }
-
-                isTouch = true;
-                break;
-            case MotionEvent.ACTION_CANCEL:
-                if (indexText != null) {
-                    indexText.onHide();
-                }
-                isTouch = false;
-                break;
         }
         invalidate();
         return true; // 返回true默认是执行该控件的事件处理
     }
+
+
+    // 设置需要显示的数据
+    public IndexView setData(List<? extends BasePinyinInfo> data) {
+
+        if (null == data || data.size() == 0) {
+            return this;
+        }
+        List<? extends BasePinyinInfo> arrs = Stream.of(data).filter(i -> i.isShowPinyin()).collect(Collectors.toList());
+        arrays = new String[arrs.size()];
+        // 对数据进行筛选到数组中
+        for (int i = 0; i < arrs.size(); i++) {
+            if (arrs.get(i).isShowPinyin() && StringUtils.isNotEmpty(arrs.get(i).getFirstPinyin())) {
+                arrays[i] = arrs.get(i).getFirstPinyin();
+            }
+        }
+
+        return this;
+    }
+
 
     public interface OnIndexText {
         void onIndexText(View v, String text, int position);

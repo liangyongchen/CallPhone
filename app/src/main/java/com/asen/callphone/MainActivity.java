@@ -47,6 +47,8 @@ import com.asen.callphone.ui.AddContactsActivity;
 import com.asen.callphone.ui.SoftwareSetActivity;
 import com.asen.callphone.ui.SystemSettingsActivity;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -185,6 +187,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
         // 把数据转拼音并排序，三步走，先设置成需要转拼音，在排序，排序后筛选需要显示的标题
         new Pinyinmpl().needToPinyin(mData).sortPinyinList(mData).showPinyin(mData);
+        // 设置需要显示字母的数组
+        mIndexView.setData(mData);
 
         // 初始化适配器
         mAdapter = new CallPhoneAdapter(this, mData);
@@ -356,10 +360,26 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     // region // 索引后的文本
+
     @Override
     public void onIndexText(View v, String text, int position) {
         mIndexText.setVisibility(View.VISIBLE);
         mIndexText.setText(text);
+
+        // 索引 mData 的资料
+        for (int i = 0; i < mData.size(); i++) {
+
+            CallPhoneModel m = mData.get(i);
+
+            if (m.isShowPinyin() && StringUtils.isNotEmpty(m.getPinyin()) && m.getPinyin().length() > 0 && StringUtils.isNotEmpty(m.getFirstPinyin()) && m.getFirstPinyin().length() > 0) {
+
+                if(text.equals(m.getFirstPinyin())){
+                    mListView.setItemViewCacheSize(position);
+                    return;
+                }
+            }
+
+        }
     }
 
     @Override
