@@ -32,7 +32,7 @@ public class Pinyinmpl implements IPinyin {
 
                     if (datas.get(i).getFirstPinyin().equals(datas.get(i - 1).getFirstPinyin())) {
                         base.setShowPinyin(false);
-                    }else {
+                    } else {
                         base.setShowPinyin(true);
                     }
 
@@ -73,6 +73,7 @@ public class Pinyinmpl implements IPinyin {
                 } else {
 
                     return o1.getPinyin().compareTo(o2.getPinyin());
+
                 }
             }
         });
@@ -107,14 +108,14 @@ public class Pinyinmpl implements IPinyin {
             }
 
             // 设置字段的拼音
-            base.setPinyin(pySB.toString());
+            base.setPinyin(pySB.toString().toUpperCase()); // 如果是小写转成大写
 
             // 获取第一个首字母
             String firstChar = pySB.toString().substring(0, 1);
 
-            if (firstChar.matches("[A-Z]")) {
+            if (firstChar.matches("[A-Z]") || firstChar.matches("[a-z]")) {
 
-                base.setFirstPinyin(firstChar);
+                base.setFirstPinyin(firstChar.toUpperCase()); // 如果是小写转成大写
 
             } else {
 

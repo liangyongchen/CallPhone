@@ -218,6 +218,10 @@ public class IndexView extends View {
         super.onDraw(canvas);
         Log.e("log", "onDraw");
 
+        if (arrays == null || arrays.length == 0) {
+            return;
+        }
+
         if (isTouch) {
             bgPaint.setAlpha(100); // 触摸到的时候设置透明度为100
         } else {
@@ -230,7 +234,7 @@ public class IndexView extends View {
 
             if (StringUtils.isNotEmpty(arrays[i])) {
                 textWidth = (mViewWidth - (int) textPaint.measureText(arrays[i])) / 2; // textPaint.measureText 获取字符串的宽度值
-                textHeiht = (mViewHeigth / arrays.length - (int) mFontMetrics.descent - (int) mFontMetrics.leading) * (i + 1);
+                textHeiht = (mViewHeigth / 27 - (int) mFontMetrics.descent - (int) mFontMetrics.leading) * (i + 1); // 27 表示 26 个字母加上 #
                 canvas.drawText(arrays[i], textWidth, textHeiht, textPaint);
             }
         }
@@ -281,7 +285,7 @@ public class IndexView extends View {
 
                 if (position != index) {
                     position = index;
-                    //Log.d("Y == ", arrays[position]);
+                    // Log.d("Y == ", arrays[position]);
                     if (indexText != null && StringUtils.isNotEmpty(arrays[position])) {
                         indexText.onIndexText(this, arrays[position], position);
                     }

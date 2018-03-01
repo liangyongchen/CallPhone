@@ -14,7 +14,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.GestureDetector;
 import android.view.Menu;
@@ -61,7 +60,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
     @BindView(R.id.listView)
-    RecyclerView mListView;
+    RecyclerView mRecyclerView;
     @BindView(R.id.content_main)
     FrameLayout mContentMain;
     @BindView(R.id.indexText)
@@ -84,6 +83,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     // RecyclerView 设置分割线和字母的显示
     private SuspensionDecoration mDecoration;
 
+    private LinearLayoutManager mLinearLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -146,7 +146,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         final GestureDetector detector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
             @Override
             public boolean onDoubleTap(MotionEvent e) {
-                mListView.setItemViewCacheSize(0);
+                mRecyclerView.setItemViewCacheSize(0);
                 return super.onDoubleTap(e);
             }
         });
@@ -193,9 +193,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         // 初始化适配器
         mAdapter = new CallPhoneAdapter(this, mData);
         mAdapter.setOnLongItemClickListener(this);
-        mListView.setAdapter(mAdapter);
-        mListView.setLayoutManager(new StaggeredGridLayoutManager(1, LinearLayoutManager.VERTICAL));
-        mListView.addItemDecoration(mDecoration = new SuspensionDecoration(this, mData));
+        mRecyclerView.setAdapter(mAdapter);
+        // mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, LinearLayoutManager.VERTICAL));
+        mRecyclerView.setLayoutManager(mLinearLayoutManager = new LinearLayoutManager(this));
+        mRecyclerView.addItemDecoration(mDecoration = new SuspensionDecoration(this, mData));
 
     }
 
@@ -373,14 +374,37 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
             if (m.isShowPinyin() && StringUtils.isNotEmpty(m.getPinyin()) && m.getPinyin().length() > 0 && StringUtils.isNotEmpty(m.getFirstPinyin()) && m.getFirstPinyin().length() > 0) {
 
-                if(text.equals(m.getFirstPinyin())){
-                    mListView.setItemViewCacheSize(position);
+                if (text.equals(m.getFirstPinyin())) {
+                    mRecyclerView.setItemViewCacheSize(i);
+
+                    // region // RecyclerView 中指定某一项item的位置显示的四种方法
+
+                    /*
+                     * RecyclerView 中指定某一项item的位置显示的四种方法
+                     * <p>
+                     * scrollBy(x, y)这个方法是自己去控制移动的距离，单位是像素,所以在使用scrollBy(x, y)需要自己去计
+                     * 算移动的高度或宽度。
+                     * <p>
+                     * scrollToPosition(position)这个方法的作用是定位到指定项，就是把你想显示的项显示出来，但是在屏幕
+                     * 的什么位置是不管的，只要那一项现在看得到了，那它就罢工了！
+                     * <p>
+                     * smoothScrollToPosition(position)和scrollToPosition(position)效果基本相似，也是把你想显示的项显
+                     * 示出来，只要那一项现在看得到了，那它就罢工了，不同的是smoothScrollToPosition是平滑到你想显示的
+                     * 项，而scrollToPosition是直接定位显示！
+                     * <p>
+                     * ((LinearLayoutManager)recyclerView.getLayoutManager()).scrollToPositionWithOffset(position,0);
+                     * 主角总是最后才登场，这种方式是定位到指定项如果该项可以置顶就将其置顶显示。比如:微信联系人的字母索引定位就是采用这种方式实现。
+                     */
+
+                    // endregion
+                    mLinearLayoutManager.scrollToPositionWithOffset(i, 0);
                     return;
                 }
             }
 
         }
     }
+
 
     @Override
     public void onHide() {
