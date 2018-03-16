@@ -12,14 +12,23 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         // Lambda & Stream
-        jackOptions {
-            enabled true
-        }
+//        jackOptions {
+//            enabled true
+//        }
+
+        android.compileOptions.sourceCompatibility 1.8
+        android.compileOptions.targetCompatibility 1.8
 
         vectorDrawables.useSupportLibrary = true
 
     }
     buildTypes {
+
+        beta {
+            //关键代码，release， debug为library中已有buildType
+            matchingFallbacks = ['release']
+        }
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -98,61 +107,61 @@ dependencies {
 //
 //    apply plugin: 'com.android.application'
 
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile "com.android.support:support-v13:$support_version"
-    compile 'com.android.support:appcompat-v7:26.+'
-    compile 'com.android.support:design:26.+'
-    compile 'com.android.support:support-v4:26.+'
-    compile 'com.android.support:support-vector-drawable:26.+'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation "com.android.support:support-v13:$support_version"
+    implementation 'com.android.support:appcompat-v7:26.+'
+    implementation 'com.android.support:design:26.+'
+    implementation 'com.android.support:support-v4:26.+'
+    implementation 'com.android.support:support-vector-drawable:26.+'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     // butterknife 注释
-    compile 'com.jakewharton:butterknife:8.8.0'
+    implementation 'com.jakewharton:butterknife:8.8.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.7.0'
     // retrofit 2
-    compile 'com.squareup.retrofit2:retrofit:2.3.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
     // RxJava 2
-    compile 'io.reactivex.rxjava2:rxjava:2.1.0'
-    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.0'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
     // RxLifecycle
-    compile 'com.trello.rxlifecycle2:rxlifecycle:2.0.1'
-    compile 'com.trello.rxlifecycle2:rxlifecycle-components:2.0.1'
+    implementation 'com.trello.rxlifecycle2:rxlifecycle:2.0.1'
+    implementation 'com.trello.rxlifecycle2:rxlifecycle-components:2.0.1'
     // RxBinding
-    compile 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
-    compile 'com.jakewharton.rxbinding2:rxbinding-support-v4:2.0.0'
-    compile 'com.jakewharton.rxbinding2:rxbinding-appcompat-v7:2.0.0'
+    implementation 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
+    implementation 'com.jakewharton.rxbinding2:rxbinding-support-v4:2.0.0'
+    implementation 'com.jakewharton.rxbinding2:rxbinding-appcompat-v7:2.0.0'
     // Rx2倒计时框架
-    compile 'com.github.thepacific:rx2timer:0.0.3'
+    implementation 'com.github.thepacific:rx2timer:0.0.3'
     // okhttp 3
-    compile 'com.squareup.okhttp3:okhttp:3.9.0'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.9.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.9.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.0'
     // 解析JSON
-    compile 'com.google.code.gson:gson:2.8.1'
+    implementation 'com.google.code.gson:gson:2.8.1'
     // 图片处理
-    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+    implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     // MD dialog（颜色选择）
-    compile 'com.afollestad.material-dialogs:core:0.9.4.4'
-    compile 'com.afollestad.material-dialogs:commons:0.9.4.4'
+    implementation 'com.afollestad.material-dialogs:core:0.9.4.4'
+    implementation 'com.afollestad.material-dialogs:commons:0.9.4.4'
     // 调试工具
-    debugCompile 'com.facebook.stetho:stetho:1.5.0'
-    testCompile 'junit:junit:4.12'
+    debugImplementation 'com.facebook.stetho:stetho:1.5.0'
+    testImplementation 'junit:junit:4.12'
     // 滑动返回 https://oss.sonatype.org/content/repositories/snapshots/com/r0adkll/slidableactivity/
-    compile 'com.r0adkll:slidableactivity:2.0.7-SNAPSHOT'
+    implementation 'com.r0adkll:slidableactivity:2.0.7-SNAPSHOT'
     // 带刻度的 SeekBar
-    compile 'com.github.Jay-Goo:RangeSeekBar:v1.0.7'
+    implementation 'com.github.Jay-Goo:RangeSeekBar:v1.0.7'
     // Apache Commons Utils
-    compile 'org.apache.commons:commons-lang3:3.5'
-    compile 'commons-io:commons-io:2.5'
+    implementation 'org.apache.commons:commons-lang3:3.5'
+    implementation 'commons-io:commons-io:2.5'
     // Lambda & Stream
-    compile 'com.annimon:stream:1.1.5'
+    implementation 'com.annimon:stream:1.1.5'
     // 协议Dialog
-    compile 'de.psdev.licensesdialog:licensesdialog:1.8.2'
+    implementation 'de.psdev.licensesdialog:licensesdialog:1.8.2'
     // 拼音
-    compile 'com.github.promeg:tinypinyin:1.0.0' // ~80KB
+    implementation 'com.github.promeg:tinypinyin:1.0.0' // ~80KB
 
     apply plugin: 'com.android.application'
 
