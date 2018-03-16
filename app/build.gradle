@@ -118,8 +118,8 @@ dependencies {
     implementation 'com.android.support:support-vector-drawable:26.+'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     // butterknife 注释
-    implementation 'com.jakewharton:butterknife:8.8.0'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.7.0'
+    implementation 'com.jakewharton:butterknife:8.4.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     // retrofit 2
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'

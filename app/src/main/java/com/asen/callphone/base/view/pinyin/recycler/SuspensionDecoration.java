@@ -39,7 +39,7 @@ public class SuspensionDecoration extends RecyclerView.ItemDecoration {
     private static int COLOR_RECT_BG;    // 标题框背景颜色
     private static int COLOR_TITLE_FONT; // 标题框字体颜色
 
-    public  void setData(List<? extends BasePinyinInfo> data){
+    public void setData(List<? extends BasePinyinInfo> data) {
         this.mDatas = data;
     }
 
@@ -78,7 +78,7 @@ public class SuspensionDecoration extends RecyclerView.ItemDecoration {
 
         super.getItemOffsets(outRect, view, parent, state);
 
-//        int position = ((RecyclerView.LayoutParams) view.getLayoutParams()).getViewLayoutPosition();
+        // int position = ((RecyclerView.LayoutParams) view.getLayoutParams()).getViewLayoutPosition();
 
         int position = parent.getChildAdapterPosition(view);
 
@@ -91,7 +91,6 @@ public class SuspensionDecoration extends RecyclerView.ItemDecoration {
         } else {
             outRect.top = mDividerHeight;
         }
-
 
     }
 
@@ -120,8 +119,6 @@ public class SuspensionDecoration extends RecyclerView.ItemDecoration {
 //            c.drawText("北京", view.getPaddingLeft() + 20, view.getTop() - mRectHeight / 2 + mTitleFontSize / 2, mTextPaint);
 //
 //        }
-
-
     }
 
     /**
@@ -147,16 +144,16 @@ public class SuspensionDecoration extends RecyclerView.ItemDecoration {
 
             if (i != 0) {
 
-                int top = view.getTop() - mRectHeight;
+                int top = view.getTop() - mRectHeight; // 获取当前 view 在现实屏幕的的top位置（mRectHeight 是 item分割线的高度）
                 int bottom = view.getTop();
 
                 if (mDatas.get(position).isShowPinyin()) {
 
-                    drawHeaderRect(c, position, left, top, right, bottom);
+                    drawHeaderRect(c, position, left, top, right, bottom);// 画字母
 
                 } else {
 
-                    c.drawLine(left, bottom, right, bottom, mPaint);
+                    c.drawLine(left, bottom, right, bottom, mPaint); // 画分割线
                 }
 
             } else {
@@ -165,13 +162,8 @@ public class SuspensionDecoration extends RecyclerView.ItemDecoration {
 
                 int suggesTop = view.getBottom() - mRectHeight; // 获取view最上层的高度
 
-                if (position == 0) {
-
-                    if (suggesTop < top)
-                        top = suggesTop;
-
-                    // 判断当前的view的下一个view是否显示 拼音 ，显示当前 view 的 bottpm - rect 的 高度 获取 top ，让后让画布画出来
-                } else if (mDatas.get(position + 1).isShowPinyin()) {
+                // 判断当前的view的下一个view是否显示 拼音 ，显示当前 view 的 bottpm - rect 的 高度 获取 top ，让后让画布画出来,替换上一个字母
+                if (mDatas.get(position + 1).isShowPinyin()) {
 
                     if (suggesTop < top)
                         top = suggesTop;
