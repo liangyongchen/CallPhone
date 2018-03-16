@@ -64,7 +64,8 @@ public class AddContactsActivity extends BaseActivity {
                     @Override
                     public void accept(@NonNull Object o) throws Exception {
 //                        timer.start();
-                        finish();
+                        //finish();
+                        onBackPressed();
                     }
                 });
 
