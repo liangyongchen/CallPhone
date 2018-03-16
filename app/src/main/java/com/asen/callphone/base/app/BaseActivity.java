@@ -16,6 +16,8 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
@@ -45,6 +47,11 @@ public abstract class BaseActivity extends RxAppCompatActivity{
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        //无title
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //全屏
+        getWindow().setFlags(WindowManager.LayoutParams. FLAG_FULLSCREEN ,
+                WindowManager.LayoutParams. FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
         initSlidable();
     }
