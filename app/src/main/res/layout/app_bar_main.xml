@@ -12,6 +12,22 @@
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
 
+        <!--
+        替换成 OverflowMenuStyle 样式看一下 Overflow 显示的背景颜色 Overflow表示导航栏右边 ... 隐藏的图标列表
+        app:popupTheme="@style/OverflowMenuStyle"
+        -->
+
+        <!--
+        ///
+        layout_scrollFlags=scroll的时候，这个View会 跟着 滚动 事件响应，
+        layout_scrollFlags=“enterAlways”的时候 这个View会响应下拉事件
+        所以呈现出来的结果应该是我们在上拉的时候toolBar 会隐藏，下拉的时候toolBar会出来
+        ///
+        那如果当我们的toolBar 等于 app:layout_scrollFlags="scroll|snap"的时候 ，
+        layout_scrollFlags=scroll的时候，这个View会 跟着 滚动 事件响应，
+        layout_scrollFlags=“snap”的时候 在Scroll滑动事件结束以前 ，如果这个View部分可见，
+        那么这个View会停在最接近当前View的位置。
+        -->
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"

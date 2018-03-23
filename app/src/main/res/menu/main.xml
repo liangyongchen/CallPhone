@@ -35,9 +35,16 @@
         android:title="通知"
         app:showAsAction="never" />
     <item
+        android:id="@+id/action_search"
+        android:icon="@drawable/icon_search"
+        app:actionViewClass="android.widget.SearchView"
+        android:title="搜索"
+        app:showAsAction="always" />
+    <item
         android:id="@+id/action_add"
         android:icon="@drawable/icon_add"
         android:orderInCategory="100"
-        android:title="添加"
-        app:showAsAction="always" />
+        android:title="添加联系人"
+        app:showAsAction="never" />
+
 </menu>

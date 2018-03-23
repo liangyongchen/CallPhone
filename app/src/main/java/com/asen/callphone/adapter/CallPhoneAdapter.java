@@ -97,7 +97,7 @@ public class CallPhoneAdapter extends RecyclerView.Adapter<ViewHolder> {
             mName.setText(String.format("%s", m.getName()));
             mPhone.setText(String.format("%s", m.getPhone()));
             mType.setText(String.format("%s", m.getType()));
-//            ImageLoader.getInstance().displayImage(
+//            ImageLoader.getInstance().displayImage(，
 //                    m.getPhoto(),
 //                    mPhoto,
 //                    ImageDisplayUtil.setCircleBitmapDisplayer(5),

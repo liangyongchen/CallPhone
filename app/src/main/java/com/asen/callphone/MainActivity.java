@@ -15,14 +15,17 @@ import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,6 +51,7 @@ import com.asen.callphone.ui.SystemSettingsActivity;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -277,11 +281,47 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     }
 
+    // 生命周期在 onResume 之后，這个方法是获取 activity的现实屏幕的尺寸参数，也是在這里修改
+    // 不能在onCreate中修改窗口尺寸，获取参数会报空指针
+    @Override
+    public void onAttachedToWindow() {
+        super.onAttachedToWindow();
+    }
+
     // region // menu 通知设置选项
+
+
+    SearchView menuSearchView;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        menuSearchView = (SearchView) searchItem.getActionView();
+        /**
+         *
+         * 這个方法是应用在 ActionBar 导航栏上面的，，现在用的是Toobar控件做导航栏，
+         * 不是自带的ActionBar，所以不触发该事件
+         *
+         * 调用MenuItem的setOnActionExpandListener()方法就可以注册一个监听器了，当
+         * SearchView展开的时候就会回调onMenuItemActionExpand()方法，当SearchView
+         * 合并的时候就会调用onMenuItemActionCollapse()方法，我们在这两个方法中进行
+         * 相应的UI操作就可以了。
+         *
+         */
+        searchItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                Log.d("TAG", "on expand");
+                return true;
+            }
+
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                Log.d("TAG", "on collapse");
+                return true;
+            }
+        });
         return true;
     }
 
@@ -303,6 +343,27 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * 设置显示导航栏隐藏的图标是否显示， 這个方法是应用在 ActionBar 导航栏上面的，，现在用
+     * 的是Toobar控件做导航栏，不是自带的ActionBar，所以不触发该事件
+     */
+    @Override
+    public boolean onMenuOpened(int featureId, Menu menu) {
+
+        if (featureId == Window.FEATURE_ACTION_BAR && menu != null) {
+            if (menu.getClass().getSimpleName().equals("MenuBuilder")) {
+                try {
+                    Method m = menu.getClass().getDeclaredMethod("setOptionalIconsVisible", Boolean.TYPE);
+                    m.setAccessible(true);
+                    m.invoke(menu, true);
+                } catch (Exception e) {
+                }
+            }
+        }
+
+        return super.onMenuOpened(featureId, menu);
     }
 
     // endregion
