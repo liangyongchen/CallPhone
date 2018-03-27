@@ -72,16 +72,13 @@ public class CallPhoneAdapter extends RecyclerView.Adapter<ViewHolder> {
         TextView mPhone;
         @BindView(R.id.type)
         TextView mType;
-        @BindView(R.id.size)
-        TextView mSize;
         @BindView(R.id.photo)
         ImageView mPhoto;
         @BindView(R.id.callPhone)
         ImageView mCallPhone;
         @BindView(R.id.btnCallItem)
         LinearLayout mBtnCallItem;
-        @BindView(R.id.line)
-        View mLine;
+
 
         public ItemViewHolder(View view) {
             super(view);
@@ -103,13 +100,6 @@ public class CallPhoneAdapter extends RecyclerView.Adapter<ViewHolder> {
 //                    ImageDisplayUtil.setCircleBitmapDisplayer(5),
 //                    new ImageDisplayUtil.AnimateFirstDisplayListener());
 
-            mLine.setVisibility(View.GONE);
-            mSize.setVisibility(View.GONE);
-            if (mData.size() == (position + 1)) {
-                mLine.setVisibility(View.VISIBLE);
-                mSize.setVisibility(View.VISIBLE);
-                mSize.setText(String.format("显示 %s 联系人", mData.size()));
-            }
 
         }
 

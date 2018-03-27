@@ -73,24 +73,5 @@
 
     </com.asen.callphone.base.view.LinearLayoutPhone>
 
-    <View
-        android:id="@+id/line"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:visibility="gone"
-        android:background="#808080" />
-
-    <TextView
-        android:id="@+id/size"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:gravity="center"
-        android:text=""
-        android:textColor="@color/Gray_80"
-        android:textSize="16dp"
-        android:visibility="gone" />
 
 </LinearLayout>

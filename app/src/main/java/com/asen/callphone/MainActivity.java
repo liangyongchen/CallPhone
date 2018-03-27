@@ -31,6 +31,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.asen.callphone.adapter.CallPhoneAdapter;
+import com.asen.callphone.adapter.HeaderAndFooterAdapter;
 import com.asen.callphone.base.app.BaseActivity;
 import com.asen.callphone.base.app.StaticInfo;
 import com.asen.callphone.base.permission.PermissionApply;
@@ -81,6 +82,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     DrawerLayout mDrawerLayout;
 
     private CallPhoneAdapter mAdapter;
+    private HeaderAndFooterAdapter mHeaderAndFooterAdapter;
 
     private List<CallPhoneModel> mData = new ArrayList<>();
 
@@ -175,6 +177,46 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     private void initAdapter() {
 
+        // 初始化适配器
+        mAdapter = new CallPhoneAdapter(this, mData);
+        mAdapter.setOnLongItemClickListener(this);
+
+        mHeaderAndFooterAdapter = new HeaderAndFooterAdapter(mAdapter) {
+            @Override
+            protected void onBindHeaderHolder(HeaderAndFooterAdapter.ViewHolder holder, int position, int layoutID, Object obj) {
+                switch (layoutID) {
+                    case R.layout.item_header:
+                        final String text = (String) obj;
+                        TextView textView = holder.getView(R.id.itemChild);
+                        textView.setText(text);
+                        break;
+                }
+            }
+
+            @Override
+            protected void onBindFooterHolder(HeaderAndFooterAdapter.ViewHolder holder, int position, int layoutID, Object obj) {
+                switch (layoutID) {
+                    case R.layout.item_header:
+                        TextView textView = holder.getView(R.id.itemChild);
+                        textView.setText("脚本");
+                        break;
+                }
+            }
+        };
+
+        mHeaderAndFooterAdapter.setHeaderView(0, R.layout.item_header, "你好");
+        mHeaderAndFooterAdapter.setHeaderView(1, R.layout.item_header, "我好");
+        mHeaderAndFooterAdapter.setHeaderView(2, R.layout.item_header, "大家好");
+        mHeaderAndFooterAdapter.addFooterView(R.layout.item_header, new View(getApplication()));
+
+        mRecyclerView.setAdapter(mHeaderAndFooterAdapter);
+        // mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, LinearLayoutManager.VERTICAL));
+        mRecyclerView.setLayoutManager(mLinearLayoutManager = new LinearLayoutManager(this));
+        mRecyclerView.addItemDecoration(mDecoration =
+                new SuspensionDecoration(this, mData)
+                        .setHeaderViewCount(mHeaderAndFooterAdapter.getHeaderViewCount())
+                        .setFooterViewCount(mHeaderAndFooterAdapter.getFooterViewCount()));
+
         List<CallPhoneModel> list = new ArrayList<>();
         list.addAll(CallPhoneBll.getContact(this));
         list.addAll(DBUtil.getInstance(this).selectAll());
@@ -193,14 +235,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         new Pinyinmpl().needToPinyin(mData).sortPinyinList(mData).showPinyin(mData);
         // 设置需要显示字母的数组
         mIndexView.setData(mData);
-
-        // 初始化适配器
-        mAdapter = new CallPhoneAdapter(this, mData);
-        mAdapter.setOnLongItemClickListener(this);
-        mRecyclerView.setAdapter(mAdapter);
-        // mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, LinearLayoutManager.VERTICAL));
-        mRecyclerView.setLayoutManager(mLinearLayoutManager = new LinearLayoutManager(this));
-        mRecyclerView.addItemDecoration(mDecoration = new SuspensionDecoration(this, mData));
 
     }
 

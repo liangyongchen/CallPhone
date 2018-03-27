@@ -39,9 +39,29 @@ public class SuspensionDecoration extends RecyclerView.ItemDecoration {
     private static int COLOR_RECT_BG;    // 标题框背景颜色
     private static int COLOR_TITLE_FONT; // 标题框字体颜色
 
+    // 头部添加的总数不需要绘制
+    private int mHeaderViewCount = 0;
+
+    // 脚本添加的总数不需要绘制
+    private int mFooterViewCount = 0;
+
+
     public void setData(List<? extends BasePinyinInfo> data) {
         this.mDatas = data;
     }
+
+    // 设置头部的item数量
+    public SuspensionDecoration setHeaderViewCount(int headerViewCount) {
+        this.mHeaderViewCount = headerViewCount;
+        return this;
+    }
+
+    // 设置脚本的item数量
+    public SuspensionDecoration setFooterViewCount(int footerViewCount) {
+        this.mFooterViewCount = footerViewCount;
+        return this;
+    }
+
 
     public SuspensionDecoration(Context mContext, List<? extends BasePinyinInfo> data) {
         this.mContext = mContext;
@@ -82,15 +102,22 @@ public class SuspensionDecoration extends RecyclerView.ItemDecoration {
 
         int position = parent.getChildAdapterPosition(view);
 
-        boolean asa = mDatas.get(position).isShowPinyin();
+        if (mDatas == null || mDatas.isEmpty() || position > mDatas.size()) {
+            return; // 防止越界
+        }
 
-        if (mDatas.get(position).isShowPinyin()) {
-            // outRect.set(0, mTitleHeight, 0, 0);
-            // 或
-            outRect.top = mRectHeight;
+        if (position >= mHeaderViewCount) {
+            if (mDatas.get(position - mHeaderViewCount).isShowPinyin()) {
+                // outRect.set(0, mTitleHeight, 0, 0);
+                // 或
+                outRect.top = mRectHeight;
+            } else {
+                outRect.top = mDividerHeight;
+            }
         } else {
             outRect.top = mDividerHeight;
         }
+
 
     }
 
@@ -104,21 +131,7 @@ public class SuspensionDecoration extends RecyclerView.ItemDecoration {
     @Override
     public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
         super.onDraw(c, parent, state);
-//        int chidCount = parent.getChildCount();
-//        int left = parent.getPaddingLeft();
-//        int right = parent.getWidth() - parent.getPaddingRight();
-//        for (int i = 0; i < chidCount; i++) {
-//
-//            // 做个接口控制什么情况下画标题框
-//
-//            View view = parent.getChildAt(i);// 获取item的view
-//            int top = view.getTop() - mRectHeight;
-//            int bottom = view.getTop();
-//
-//            c.drawRect(left, top, right, bottom, mPaint);
-//            c.drawText("北京", view.getPaddingLeft() + 20, view.getTop() - mRectHeight / 2 + mTitleFontSize / 2, mTextPaint);
-//
-//        }
+
     }
 
     /**
@@ -142,36 +155,45 @@ public class SuspensionDecoration extends RecyclerView.ItemDecoration {
 
             int position = parent.getChildAdapterPosition(view); // 根据当前 view 获取 在列表中的位置position
 
-            if (i != 0) {
+            if (mDatas == null || mDatas.isEmpty() || position > mDatas.size()) {
+                return; // 防止越界
+            }
 
-                int top = view.getTop() - mRectHeight; // 获取当前 view 在现实屏幕的的top位置（mRectHeight 是 item分割线的高度）
-                int bottom = view.getTop();
+            if (position >= mHeaderViewCount) {
 
-                if (mDatas.get(position).isShowPinyin()) {
+                if (i != 0) {
 
-                    drawHeaderRect(c, position, left, top, right, bottom);// 画字母
+                    int top = view.getTop() - mRectHeight; // 获取当前 view 在现实屏幕的的top位置（mRectHeight 是 item分割线的高度）
+                    int bottom = view.getTop();
+
+                    if (mDatas.get(position - mHeaderViewCount).isShowPinyin()) {
+
+                        drawHeaderRect(c, position - mHeaderViewCount, left, top, right, bottom);// 画字母
+
+                    } else {
+
+                        c.drawLine(left, bottom, right, bottom, mPaint); // 画分割线
+                    }
 
                 } else {
 
-                    c.drawLine(left, bottom, right, bottom, mPaint); // 画分割线
+                    int top = parent.getPaddingTop(); // 父控件的最上端
+
+                    int suggesTop = view.getBottom() - mRectHeight; // 获取view最上层的高度
+
+                    // 判断当前的view的下一个view是否显示 拼音 ，显示当前 view 的 bottpm - rect 的 高度 获取 top ，让后让画布画出来,替换上一个字母
+                    if (mDatas.get(position - mHeaderViewCount + 1).isShowPinyin()) {
+
+                        if (suggesTop < top)
+                            top = suggesTop;
+                    }
+                    int bottom = top + mRectHeight;
+                    drawHeaderRect(c, position - mHeaderViewCount, left, top, right, bottom);
                 }
 
             } else {
-
-                int top = parent.getPaddingTop(); // 父控件的最上端
-
-                int suggesTop = view.getBottom() - mRectHeight; // 获取view最上层的高度
-
-                // 判断当前的view的下一个view是否显示 拼音 ，显示当前 view 的 bottpm - rect 的 高度 获取 top ，让后让画布画出来,替换上一个字母
-                if (mDatas.get(position + 1).isShowPinyin()) {
-
-                    if (suggesTop < top)
-                        top = suggesTop;
-                }
-                int bottom = top + mRectHeight;
-                drawHeaderRect(c, position, left, top, right, bottom);
+                c.drawLine(left, view.getTop(), right, view.getTop(), mPaint); // 画分割线
             }
-
         }
 
     }
