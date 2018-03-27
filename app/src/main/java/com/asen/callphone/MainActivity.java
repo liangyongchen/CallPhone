@@ -196,9 +196,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             @Override
             protected void onBindFooterHolder(HeaderAndFooterAdapter.ViewHolder holder, int position, int layoutID, Object obj) {
                 switch (layoutID) {
-                    case R.layout.item_header:
-                        TextView textView = holder.getView(R.id.itemChild);
-                        textView.setText("脚本");
+                    case R.layout.item_footer:
+                        TextView textView = holder.getView(R.id.size);
+                        textView.setText(String.format("显示 %s 联系人", mData.size()));
                         break;
                 }
             }
@@ -207,7 +207,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         mHeaderAndFooterAdapter.setHeaderView(0, R.layout.item_header, "你好");
         mHeaderAndFooterAdapter.setHeaderView(1, R.layout.item_header, "我好");
         mHeaderAndFooterAdapter.setHeaderView(2, R.layout.item_header, "大家好");
-        mHeaderAndFooterAdapter.addFooterView(R.layout.item_header, new View(getApplication()));
+//        mHeaderAndFooterAdapter.addFooterView(R.layout.item_footer, new View(getApplication()));
 
         mRecyclerView.setAdapter(mHeaderAndFooterAdapter);
         // mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, LinearLayoutManager.VERTICAL));

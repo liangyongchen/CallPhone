@@ -6,11 +6,13 @@
     android:fitsSystemWindows="true">
 
     <TextView
-        android:id="@+id/itemChild"
+        android:id="@+id/size"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
-        android:padding="10dp"
-        android:text="你好" />
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:text="adasasa"
+        android:textColor="@color/textColorPrimary"
+        android:textSize="16dp" />
 
 </LinearLayout>
