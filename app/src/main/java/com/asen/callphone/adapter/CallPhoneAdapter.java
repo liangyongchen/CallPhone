@@ -24,6 +24,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
+ * yongchen
  * Created by asus on 2017/11/24.
  */
 
@@ -94,12 +95,6 @@ public class CallPhoneAdapter extends RecyclerView.Adapter<ViewHolder> {
             mName.setText(String.format("%s", m.getName()));
             mPhone.setText(String.format("%s", m.getPhone()));
             mType.setText(String.format("%s", m.getType()));
-//            ImageLoader.getInstance().displayImage(，
-//                    m.getPhoto(),
-//                    mPhoto,
-//                    ImageDisplayUtil.setCircleBitmapDisplayer(5),
-//                    new ImageDisplayUtil.AnimateFirstDisplayListener());
-
 
         }
 

@@ -102,7 +102,7 @@ public class SuspensionDecoration extends RecyclerView.ItemDecoration {
 
         int position = parent.getChildAdapterPosition(view);
 
-        if (mDatas == null || mDatas.isEmpty() || position > mDatas.size()) {
+        if (mDatas == null || mDatas.isEmpty() || position > (mDatas.size() + mHeaderViewCount - 1)) {
             return; // 防止越界
         }
 
@@ -117,7 +117,6 @@ public class SuspensionDecoration extends RecyclerView.ItemDecoration {
         } else {
             outRect.top = mDividerHeight;
         }
-
 
     }
 
@@ -155,7 +154,7 @@ public class SuspensionDecoration extends RecyclerView.ItemDecoration {
 
             int position = parent.getChildAdapterPosition(view); // 根据当前 view 获取 在列表中的位置position
 
-            if (mDatas == null || mDatas.isEmpty() || position > mDatas.size()) {
+            if (mDatas == null || mDatas.isEmpty() || position > (mDatas.size() + mHeaderViewCount - 1)) {
                 return; // 防止越界
             }
 

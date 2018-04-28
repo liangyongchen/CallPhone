@@ -204,10 +204,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             }
         };
 
-        mHeaderAndFooterAdapter.setHeaderView(0, R.layout.item_header, "你好");
-        mHeaderAndFooterAdapter.setHeaderView(1, R.layout.item_header, "我好");
-        mHeaderAndFooterAdapter.setHeaderView(2, R.layout.item_header, "大家好");
-//        mHeaderAndFooterAdapter.addFooterView(R.layout.item_footer, new View(getApplication()));
+//        mHeaderAndFooterAdapter.setHeaderView(0, R.layout.item_header, "你好");
+//        mHeaderAndFooterAdapter.setHeaderView(1, R.layout.item_header, "我好");
+//        mHeaderAndFooterAdapter.setHeaderView(2, R.layout.item_header, "大家好");
+        mHeaderAndFooterAdapter.addFooterView(R.layout.item_footer, new View(getApplication()));
 
         mRecyclerView.setAdapter(mHeaderAndFooterAdapter);
         // mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, LinearLayoutManager.VERTICAL));
